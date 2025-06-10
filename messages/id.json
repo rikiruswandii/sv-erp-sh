@@ -1,4 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from id!"
+	"hello_world": "Hello, {name} from id!",
+	"login_text": "Masuk ke akun Anda",
+	"register_text": "Daftar untuk membuat akun",
+	"email_label": "Alamat Email",
+	"username_label": "Username",
+	"label_interupt": "Masukkan {name} anda.",
+	"password_label": "Kata Sandi",
+	"forgot_label": "Lupa kata sandi?",
+	"btn_login_label": "Masuk",
+	"btn_register_label": "Daftar"
 }

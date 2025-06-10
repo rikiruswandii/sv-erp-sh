@@ -1,4 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from en!"
+	"hello_world": "Hello, {name} from en!",
+	"login_text": "Sign in to your account",
+	"register_text": "Register to create your account",
+	"email_label": "Email address",
+	"username_label": "Username",
+	"label_interupt": "Enter your {name}.",
+	"password_label": "Password",
+	"forgot_label": "Forgot password?",
+	"btn_login_label": "Sign in",
+	"btn_register_label": "Register"
 }
