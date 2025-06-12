@@ -3,11 +3,11 @@ import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { hash } from '@node-rs/argon2';
-import { encodeBase32LowerCase } from '@oslojs/encoding';
 import * as auth from '$lib/server/auth';
 import { db } from '$lib/server/db';
 import * as table from '$lib/server/db/schema';
 import type { Actions, PageServerLoad } from './$types';
+import { generateUserId } from '../../../../hooks/use-id';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
@@ -41,9 +41,11 @@ export const actions: Actions = {
 		try {
 			await db.insert(table.users).values({
 				id: userId,
+				roleId: '1',
 				name,
 				email,
 				passwordHash,
+				emailVerified: true
 			});
 
 			const sessionToken = auth.generateSessionToken();
@@ -69,8 +71,3 @@ export const actions: Actions = {
 		}
 	},
 };
-
-function generateUserId() {
-	const bytes = crypto.getRandomValues(new Uint8Array(15));
-	return encodeBase32LowerCase(bytes);
-}
