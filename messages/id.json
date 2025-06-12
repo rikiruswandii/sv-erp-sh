@@ -4,9 +4,12 @@
 	"login_text": "Masuk ke akun Anda",
 	"register_text": "Daftar untuk membuat akun",
 	"email_label": "Alamat Email",
+	"name_label": "Nama Lengkap",
 	"username_label": "Username",
 	"label_interupt": "Masukkan {name} anda.",
+	"confirm_interupt": "Silakan masukkan ulang password Anda.",
 	"password_label": "Kata Sandi",
+	"confirm_password_label": "Confirm Password",
 	"forgot_label": "Lupa kata sandi?",
 	"btn_login_label": "Masuk",
 	"btn_register_label": "Daftar"

@@ -1,15 +1,40 @@
 <script lang="ts">
-	import '../../app.css';
-	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import AppSidebar from '$lib/components/app-sidebar.svelte';
+	import Sidebar from '$lib/components/layouts/panel/sidebar.svelte';
+	import Header from '$lib/components/layouts/panel/header.svelte';
 
 	let { children } = $props();
 </script>
+<svelte:head>
+	<link rel="stylesheet" href="/assets/css/dashlite.css">
+    <link id="skin-default" rel="stylesheet" href="/assets/css/theme.css">
+    <link id="skin-default" rel="stylesheet" href="/assets/css/skins/theme-blue.css">
+	<script src="/assets/js/bundle.js"></script>
+    <script src="/assets/js/scripts.js"></script>
+    <script src="/assets/js/charts/chart-ecommerce.js"></script>
+</svelte:head>
 
-<Sidebar.Provider>
-	<AppSidebar />
-	<main>
-		<Sidebar.Trigger />
-		{@render children?.()}
-	</main>
-</Sidebar.Provider>
+
+<div class="nk-body ui-rounder npc-default has-sidebar">
+    <div class="nk-app-root">
+        <Sidebar />
+        <!-- main @s -->
+        <div class="nk-main ">
+            <!-- wrap @s -->
+            <div class="nk-wrap ">
+                <!-- main header @s -->
+                <Header />
+                <!-- main header @e -->
+                <!-- content @s -->
+                {@render children()}
+                <!-- content @e -->
+            </div>
+            <!-- wrap @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+    <!-- app-root @e -->
+    <!-- select region modal -->
+    <!-- .modal -->
+    <!-- select region modal -->
+    <!-- .modal -->
+</div>

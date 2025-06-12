@@ -3,6 +3,7 @@ import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
 	plugins: [
@@ -13,6 +14,17 @@ export default defineConfig({
 			outdir: './src/lib/paraglide'
 		})
 	],
+	resolve: {
+		alias: {
+		  $components: path.resolve('./src/lib/components'),
+		  $stores: path.resolve('./src/lib/stores'),
+		  $utils: path.resolve('./src/lib/utils'),
+		  $assets: path.resolve('./src/lib/assets'),
+		  $routes: path.resolve('./src/lib/routes'),
+		  $types: path.resolve('./src/lib/types'),
+		  $lib: path.resolve('./src/lib')
+		}
+	  },
 	test: {
 		workspace: [
 			{
