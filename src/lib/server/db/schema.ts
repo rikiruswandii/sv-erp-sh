@@ -14,7 +14,7 @@ export const roles = mysqlTable('roles', {
 // TABEL USERS
 export const users = mysqlTable('users', {
 	id: varchar('id', { length: 36 }).primaryKey(),
-	roleId: varchar('role_id', { length: 36 }).references(() => roles.id),
+	roleId: varchar('role_id', { length: 36 }).references(() => roles.id).notNull(),
 	name: varchar('name', { length: 255 }).notNull(),
 	email: varchar('email', { length: 255 }).notNull().unique(),
 	passwordHash: varchar('password_hash', { length: 255 }).notNull(),
