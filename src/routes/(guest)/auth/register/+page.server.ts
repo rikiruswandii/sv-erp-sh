@@ -7,7 +7,7 @@ import * as auth from '$lib/server/auth';
 import { db } from '$lib/server/db';
 import * as table from '$lib/server/db/schema';
 import type { Actions, PageServerLoad } from './$types';
-import { generateUserId } from '../../../../hooks/use-id';
+import {generateUserId} from '$lib/hooks/useUserId';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {

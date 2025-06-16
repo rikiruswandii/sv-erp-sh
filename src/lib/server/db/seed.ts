@@ -1,4 +1,4 @@
-import { generateUserId } from '../../../hooks/use-id';
+import { generateUserId } from '../../hooks/use-id';
 import { db } from './index';
 import { roles, users } from './schema';
 import { hash } from '@node-rs/argon2';

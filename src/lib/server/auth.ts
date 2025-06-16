@@ -35,12 +35,17 @@ export async function validateSessionToken(token: string) {
 			user: {
 				id: table.users.id,
 				email: table.users.email,
-				name: table.users.name
+				name: table.users.name,
+				role: {
+					id: table.roles.id,
+					name: table.roles.name
+				}
 			},
 			session: table.sessions
 		})
 		.from(table.sessions)
 		.innerJoin(table.users, eq(table.sessions.userId, table.users.id))
+		.leftJoin(table.roles, eq(table.users.roleId, table.roles.id)) 
 		.where(eq(table.sessions.id, sessionId));
 
 	if (!result) {

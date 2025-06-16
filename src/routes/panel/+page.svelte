@@ -11,6 +11,7 @@
   
   <svelte:head>
 	<title>Dashboard</title>
+		<script src="/assets/js/charts/chart-ecommerce.js" defer></script>
   </svelte:head>
   
 <div class="nk-content ">
