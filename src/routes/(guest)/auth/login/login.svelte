@@ -9,7 +9,7 @@
 		FormFieldErrors,
 		FormButton
 	} from '$lib/components/ui/form/index.js';
-	import { formSchema, type FormSchema } from './schema';
+	import { formSchema, type FormSchema } from '$lib/schemas/auth/login';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 

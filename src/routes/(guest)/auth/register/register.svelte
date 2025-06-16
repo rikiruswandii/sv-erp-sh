@@ -9,7 +9,7 @@
 	} from '$lib/components/ui/form/index.js';
 	import { m } from '$lib/paraglide/messages';
 	import { Input } from '$lib/components/ui/input/index.js';
-	import { formSchema, type FormSchema } from './schema';
+	import { formSchema, type FormSchema } from '$lib/schemas/auth/register.ts';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 

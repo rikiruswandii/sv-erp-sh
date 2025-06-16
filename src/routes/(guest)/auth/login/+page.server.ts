@@ -1,7 +1,7 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { verify } from '@node-rs/argon2';
 import { superValidate } from 'sveltekit-superforms';
-import { formSchema } from './schema';
+import { formSchema } from '$lib/schemas/auth/login';
 import { zod } from 'sveltekit-superforms/adapters';
 import { eq } from 'drizzle-orm';
 import * as auth from '$lib/server/auth';
@@ -10,6 +10,7 @@ import * as table from '$lib/server/db/schema';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
+
 	if (event.locals.user) {
 		throw redirect(302, '/panel');
 	}
