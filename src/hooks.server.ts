@@ -1,7 +1,18 @@
 import { sequence } from '@sveltejs/kit/hooks';
 import * as auth from '$lib/server/auth.js';
-import type { Handle } from '@sveltejs/kit';
+import { error, type Handle } from '@sveltejs/kit';
 import { paraglideMiddleware } from '$lib/paraglide/server';
+
+const handleRoute: Handle = async ({ event, resolve }) => {
+	const response = await resolve(event);
+  
+	if (response.status === 404) {
+	  // Lempar ulang error agar `+error.svelte` dirender
+	  throw error(404, `Halaman ${event.url.pathname} tidak ditemukan`);
+	}
+  
+	return response;
+};
 
 const handleParaglide: Handle = ({ event, resolve }) => paraglideMiddleware(event.request, ({ request, locale }) => {
 	event.request = request;
@@ -33,4 +44,4 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-export const handle: Handle = sequence(handleParaglide, handleAuth);
+export const handle: Handle = sequence(handleParaglide, handleAuth, handleRoute);
