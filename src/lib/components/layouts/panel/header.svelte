@@ -1,8 +1,13 @@
+<script lang="ts">
+   export let data;
+</script>
+
+
 <div class="nk-header nk-header-fixed nk-header-fluid is-light">
     <div class="container-fluid">
         <div class="nk-header-wrap">
             <div class="nk-menu-trigger d-xl-none ms-n1">
-                <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                <a aria-label="Toggle menu" href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
             </div>
             <div class="nk-header-brand d-xl-none">
                 <a href="html/index.html" class="logo-link">
@@ -17,7 +22,7 @@
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
                     <li class="nav-item">
-                        <a data-bs-toggle="modal" href="#region" class="nk-quick-nav-icon"><em class="icon ni ni-globe"></em></a>
+                        <a aria-label="Toggle quick" data-bs-toggle="modal" href="#region" class="nk-quick-nav-icon"><em class="icon ni ni-globe"></em></a>
                     </li>
                     <li class="dropdown chats-dropdown hide-mb-xs">
                         <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
@@ -261,7 +266,7 @@
                         </div>
                     </li><!-- .dropdown -->
                     <li class="dropdown user-dropdown">
-                        <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
+                        <a aria-label="dropdown toggle" href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
                             <div class="user-toggle">
                                 <div class="user-avatar sm">
                                     <em class="icon ni ni-user-alt"></em>
@@ -275,17 +280,21 @@
                                         <span>AB</span>
                                     </div>
                                     <div class="user-info">
-                                        <span class="lead-text">Abu Bin Ishtiyak</span>
-                                        <span class="sub-text">info@softnio.com</span>
+                                        <span class="lead-text">{data.name}</span>
+                                        <span class="sub-text">{data.email}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
-                                    <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                    <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                    <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                    <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                    <li><a href="/panel/profile"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                    <li><a href="#"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                    <li><a href="#"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
+                                    <li>
+                                        <button type="button" class="dark-switch btn btn-link p-0" aria-label="Toggle dark mode">
+                                            <em class="icon ni ni-moon"></em><span>Dark Mode</span>
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">
