@@ -75,7 +75,7 @@
 <Dialog.Root bind:open={isOpenDestroy}>
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Delete User</Dialog.Title>
+			<Dialog.Title  class="text-primary font-semibold">Delete User</Dialog.Title>
 			<Dialog.Description>
 				Are you sure you want to delete this user? This action cannot be undone.
 			</Dialog.Description>
@@ -85,9 +85,9 @@
 			<input type="hidden" name="id" value={id} />
 
 			<div class="flex justify-end gap-2">
-				<Button type="button" variant="outline">
-					<Dialog.Close>Cancel</Dialog.Close>
-				</Button>
+				<Button type="button" variant="outline" onclick={() => isOpenDestroy = false}>
+					Cancel
+				</Button>						
 				{#if $delayedDestroy}
 					<Button disabled  variant="destructive">
 						<LoaderCircle class="animate-spin" />
@@ -105,7 +105,7 @@
 <Dialog.Root bind:open={isOpenReset}>
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Reset Password User</Dialog.Title>
+			<Dialog.Title  class="text-primary font-semibold">Reset Password User</Dialog.Title>
 			<Dialog.Description>
 				Are you sure you want to reset password this user? This action cannot be undone.
 			</Dialog.Description>
@@ -115,9 +115,9 @@
 			<input type="hidden" name="id" value={id} />
 
 			<div class="flex justify-end gap-2">
-				<Button type="button" variant="outline">
-					<Dialog.Close>Cancel</Dialog.Close>
-				</Button>
+				<Button type="button" variant="outline" onclick={() => isOpenReset = false}>
+					Cancel
+				</Button>				
 				{#if $delayedReset}
 					<Button disabled  variant="destructive">
 						<LoaderCircle class="animate-spin" />
