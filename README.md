@@ -1,38 +1,42 @@
-# sv
+# SV-ERP-SH
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+**SV-ERP-SH** adalah proyek ERP (Enterprise Resource Planning) berbasis web yang dibangun menggunakan **SvelteKit**, **Tailwind CSS**, **Drizzle ORM**, dan ekosistem modern lainnya.
 
-## Creating a project
+## 👨‍💻 Kontributor
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Riki Ruswandi / Mikeu**  
+  📧 [rikiruswandi@gmail.com](mailto:rikiruswandi@gmail.com)  
+  🔗 [https://github.com/rikiruswandii](https://github.com/rikiruswandii)
 
-```bash
-# create a new project in the current directory
-npx sv create
+## ⚙️ Teknologi Utama
 
-# create a new project in my-app
-npx sv create my-app
-```
+- **Frontend**:  
+  `SvelteKit`, `Tailwind CSS`, `Lucide Icons`, `Vite`
 
-## Developing
+- **Backend & ORM**:  
+  `Drizzle ORM`, `MySQL` (`mysql2`)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- **Pengujian**:  
+  `Vitest`, `@testing-library/svelte`, `jest-dom`
 
-```bash
-npm run dev
+- **Utilities**:  
+  `dotenv`, `clsx`, `ziggy-js`, `superforms`, `argon2`, `OsloJS`, dll.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+- **Pengembangan**:  
+  `ESLint`, `Prettier`, `TypeScript`, `Drizzle Kit`, `Docker`
 
-## Building
+## 📁 Struktur Penting
 
-To create a production version of your app:
+- `src/` – Source utama aplikasi  
+- `static/` – Aset statis (gambar, font, dll.)  
+- `package.json` – Librari Node    
+- `svelte.config.js` – Konfigurasi Svelte    
+- `vite.config.ts` – Konfigurasi Vite  
+- `drizzle.config.ts` – Konfigurasi Drizzle  
+- `tailwind.config.ts` – Konfigurasi Tailwind  
+- `tsconfig.json` – Konfigurasi Typescript  
+- `docker-compose.yml` – Konfigurasi database (opsional)
 
-```bash
-npm run build
-```
+## ⚠️ Lisensi Proprietary
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+© PT. Pratama Solusi Teknologi. Seluruh hak cipta dilindungi undang-undang.
