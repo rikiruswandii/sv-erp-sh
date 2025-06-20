@@ -1,11 +1,18 @@
+// src/routes/panel/user/+page.server.ts
+
 import * as user from '$lib/server/user';
-import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from '$lib/schemas/user/user';
 import { zod } from 'sveltekit-superforms/adapters';
 import { hash } from '@node-rs/argon2';
-import { useInitials, generateUserId } from '$lib/hooks/useInitials';
+import { generateUserId } from '$lib/hooks/useUserId';
+import { useInitials } from '$lib/hooks/useInitials';
 import type { Actions, PageServerLoad } from './$types';
+import { fail } from '@sveltejs/kit';
+import { destroySchema } from '$lib/schemas/user/destroy';
+import { resetSchema } from '$lib/schemas/user/reset';
+import 'dotenv/config';
+
 
 export const load: PageServerLoad = async () => {
 	const [users, sessions, projects, tasks] = await Promise.all([
@@ -27,60 +34,135 @@ export const load: PageServerLoad = async () => {
 		tasks: taskMap[u.id] ?? [],
 	}));
 
-
 	return {
 		allUser: allUserWithData,
 		countAllUser: users.length,
+		formDestroy: await superValidate(zod(destroySchema)),
 		form: await superValidate(zod(formSchema)),
+		formReset: await superValidate(zod(resetSchema)),
 	};
 };
 
-export const actions: Actions = {
-	default: async (event) => {
+export const actions = {
+	create: async (event) => {
 		const form = await superValidate(event, zod(formSchema));
+
 		if (!form.valid) {
-			return fail(400, { form });
+			return fail(400, {
+				form,
+				error: { message: 'Please check your input' }
+			});
 		}
 
-		// Ambil confirmPassword agar destructuring sesuai schema
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { name, email, password, confirmPassword, roleId } = form.data;
-		// confirmPassword tidak digunakan untuk proses selanjutnya, hanya validasi
-
+		const { name, email, password, roleId } = form.data;
 		const userId = generateUserId();
-		const passwordHash = await hash(password, {
-			memoryCost: 19456,
-			timeCost: 2,
-			outputLen: 32,
-			parallelism: 1,
-		});
 
 		try {
+			const passwordHash = await hash(password, {
+				memoryCost: 19456,
+				timeCost: 2,
+				outputLen: 32,
+				parallelism: 1,
+			});
+
 			await user.createUser({
 				id: userId,
-				roleId: roleId,
+				roleId: String(roleId),
 				name,
 				email,
 				passwordHash,
 				emailVerified: true
 			});
 
-			throw redirect(302, '/panel/user');
+			return {
+				form,
+				success: true
+			};
+
 		} catch (e) {
 			if (typeof e === 'object' && e !== null && 'code' in e) {
 				const err = e as { code: string };
-
-				console.error(err);
-
-				// Tangani unique constraint error (email sudah ada)
 				if (err.code === 'SQLITE_CONSTRAINT' || err.code === '23505') {
-					form.errors.email = ['Email sudah digunakan'];
-					return fail(400, { form });
+					return fail(400, {
+						form,
+						error: { message: 'Email already in use' }
+					});
 				}
+				return fail(500, {
+					form,
+					error: { message: 'An error occurred, please try again' }
+				});
 			}
-
-			// Fallback jika error lainnya
-			return fail(500, { form, message: 'Terjadi kesalahan saat menambahkan pengguna.' });
+			throw e;
 		}
 	},
-};
+	reset: async (event) => {
+		const form = await superValidate(event, zod(resetSchema));
+
+		if (!form.valid) {
+			return fail(400, {
+				form,
+				error: { message: 'ID tidak valid' }
+			});
+		}
+
+		if (!process.env.PASSWORD_DEFAULT) {
+			throw new Error('PASSWORD_DEFAULT environment variable is not set.');
+		}
+
+		try {
+			const passwordHash = await hash(process.env.PASSWORD_DEFAULT, {
+				memoryCost: 19456,
+				timeCost: 2,
+				outputLen: 32,
+				parallelism: 1,
+			});
+
+			await user.updateUserPassword(form.data.id, passwordHash);
+
+			return {
+				form,
+				success: true,
+				message: 'Password berhasil direset'
+			};
+		} catch (e) {
+			return fail(500, {
+				form,
+				error: { message: 'Gagal mereset password' }
+			});
+		}
+	},	
+	destroy: async (event) => {
+		const form = await superValidate(event, zod(destroySchema));
+
+		if (!form.valid) {
+			return fail(400, {
+				form, // ubah dari formDestroy ke form
+				error: { message: 'ID tidak valid' }
+			});
+		}
+
+		try {
+			await user.deleteUser(form.data.id);
+			return {
+				form, // ubah dari formDestroy ke form
+				success: true
+			};
+		} catch (e) {
+			if (typeof e === 'object' && e !== null && 'code' in e) {
+				const err = e as { code: string };
+				if (err.code === 'SQLITE_CONSTRAINT' || err.code === '23505') {
+					return fail(400, {
+						form, // ubah dari formDestroy ke form
+						error: { message: 'Gagal menghapus user karena constraint database.' }
+					});
+				}
+				return fail(500, {
+					form, // ubah dari formDestroy ke form
+					error: { message: 'Terjadi kesalahan saat menghapus user.' }
+				});
+			}
+			throw e;
+		}
+	}
+} satisfies Actions;

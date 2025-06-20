@@ -6,8 +6,9 @@ import {useInitials} from '$lib/hooks/useInitials';
 export const load: LayoutServerLoad = async (event) => {
   const user = requireLogin(event);
   const ak = useInitials(user.name);
-
-  return { user: { ...user, ak } };
+  const avatar = '/images/avatar/a-sm.jpg';
+  
+  return { user: { ...user, ak, avatar } };
 };
 
 // Memeriksa apakah user sudah login

@@ -33,7 +33,7 @@ export async function getTasks() {
   return await db.select().from(table.tasks);
 }
 
-export async function getUserById(id: number): Promise<table.User | null> {
+export async function getUserById(id: string): Promise<table.User | null> {
   const result = await db.select().from(table.users).where(eq(table.users.id, id));
   return result[0] ?? null;
 } 
@@ -42,6 +42,13 @@ export async function createUser(data: table.NewUser) {
   return await db.insert(table.users).values(data);
 }
 
-export async function deleteUser(id: number) {
+export async function updateUserPassword(userId: string, passwordHash: string) {
+  return await db
+    .update(table.users)
+    .set({ passwordHash: passwordHash })
+    .where(eq(table.users.id, userId));
+}
+
+export async function deleteUser(id: string) {
   return await db.delete(table.users).where(eq(table.users.id, id));
 }

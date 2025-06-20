@@ -9,7 +9,7 @@
 	"label_interupt": "Enter your {name}.",
 	"confirm_interupt": "Please re-enter your password.",
 	"password_label": "Password",
-	"confirm_password_label": "Password",
+	"confirm_password_label": "Confirm Password",
 	"forgot_label": "Forgot password?",
 	"btn_login_label": "Sign in",
 	"btn_register_label": "Register"

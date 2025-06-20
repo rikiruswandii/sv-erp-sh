@@ -5,39 +5,22 @@
 		<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAh1BMVEVHcEwFOmcERG0ESHcANmwBMWgFRWxibl3/2AD/1gr/1An/zgL/xwH/xAABNmYHRGsCQ3MDUIAAGoYHRmz/wwAHO2YFPGkDRnP/4wAANGiyl0v/xAD/yQP/wwAHRmz/6gf/xAD/xAABK2oAMGn/wwAHRmz/2Qv/wwD/zQUHRmwCNmUDPmkAI3AgYmK8AAAALXRSTlMAgsG+Yiy4T2mLxrzEm2//zf8H3aGS66tBNmXPjw5/Kf98Iljq/U7fVoJRSBN5ISlxAAAAqUlEQVR4Ae1MhQGAMAwb7u4OHQ7/v4f7DWSWLoJ+7CBIkqJohBiWXMDxgihJkqxsmqqxFKUbJtIslmUPUZbtTXTc9fb8QLu6aP0ghxhGSHN1L5aSZUi1W8wyxc4LBJ7HYrlcxeoW/bpsimNq8494/sdl0+TRwrqrticO4vOKomwNg3OKY2AGAAyMI4A5MhAwwJgMM25iMJi0imlV7THdYwIW2tMYB+jHihkhVwz9eN/cPAAAAABJRU5ErkJggg==" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>%sveltekit.error.message%</title>
-		<link rel="stylesheet" href="/assets/css/dashlite.css?ver=3.0.3">
-    <link id="skin-default" rel="stylesheet" href="/assets/css/theme.css?ver=3.0.3">
-	<link rel="stylesheet" href="/assets/css/skins/theme-blue.css">
+		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 	</head>
-	<body class="nk-body ui-rounder npc-default pg-error">
-		<div class="nk-app-root">
-			<!-- main @s -->
-			<div class="nk-main ">
-				<!-- wrap @s -->
-				<div class="nk-wrap nk-wrap-nosidebar">
-					<!-- content @s -->
-					<div class="nk-content ">
-						<div class="nk-block nk-block-middle wide-md mx-auto">
-							<div class="nk-block-content nk-error-ld text-center">
-								<img class="nk-error-gfx" src="/undraw_server-error_syuz.svg" alt="">
-								<div class="wide-xs mx-auto">
-									<h3 class="nk-error-title">%sveltekit.status% | %sveltekit.error.message%</h3>
-									<p class="nk-error-text">We are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.</p>
-									<a href="/panel" class="btn btn-lg btn-primary mt-2">Back To Home</a>
-								</div>
-							</div>
-						</div><!-- .nk-block -->
-					</div>
-					<!-- wrap @e -->
-				</div>
-				<!-- content @e -->
+	<body class="bg-white text-gray-800 min-h-screen flex flex-col items-center justify-center">
+		<main class="flex flex-col items-center justify-center px-4 text-center max-w-md w-full space-y-6">
+			<img src="/undraw_server-error_syuz.svg" alt="Server Error" class="h-64 mx-auto" />
+			<div>
+				<h3 class="text-2xl font-bold">
+					%sveltekit.status% | %sveltekit.error.message%
+				</h3>
+				<p class="mt-4 text-gray-600">
+					We are very sorry for the inconvenience. It looks like you’re trying to access a page that either has been deleted or never existed.
+				</p>
+				<a href="/panel" class="inline-block mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition">
+					Back To Home
+				</a>
 			</div>
-			<!-- main @e -->
-		</div>
-		<!-- app-root @e -->
-		<!-- JavaScript -->
-		<script src="/assets/js/bundle.js?ver=3.0.3"></script>
-		<script src="/assets/js/scripts.js?ver=3.0.3"></script>
+		</main>
 	</body>
 </html>
-

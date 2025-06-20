@@ -101,7 +101,7 @@ export const tasks = mysqlTable('tasks', {
 	assignedTo: varchar('assigned_to', { length: 36 }).references(() => users.id, { onDelete: 'set null' }),
 	title: varchar('title', { length: 255 }).notNull(),
 	description: text('description'),
-	status: mysqlEnum('status', ['open', 'in_progress', 'completed']).default('open'),
+	status: mysqlEnum('status', ['open', 'in_progress', 'completed', 'waiting']).default('waiting'),
 	priority: mysqlEnum('priority', ['low', 'medium', 'high']).default('medium'),
 	deadline: date('deadline'),
 	deletedAt: timestamp('deleted_at'),

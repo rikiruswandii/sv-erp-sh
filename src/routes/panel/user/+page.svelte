@@ -1,272 +1,191 @@
 <script lang="ts">
+	import * as Breadcrumb from '$lib/components/ui/breadcrumb';
+	import { Separator } from '$lib/components/ui/separator';
+	import Plus from '@lucide/svelte/icons/plus';
+	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import * as Sidebar from '$lib/components/ui/sidebar';
+	import * as Form from '$lib/components/ui/form';
+	import * as Select from '$lib/components/ui/select';
+	import { Input } from '$lib/components/ui/input';
+	import { Button } from '$lib/components/ui/button';
 	import { formSchema, type FormSchema } from '$lib/schemas/user/user';
+	import { type DestroySchema } from '$lib/schemas/user/destroy';
+	import { type ResetSchema } from '$lib/schemas/user/reset';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { m } from '$lib/paraglide/messages';
+	import { toast } from 'svelte-sonner';
 
-	export let data: { form: SuperValidated<Infer<FormSchema>> };
+	import DataTable from './data-table.svelte';
+	import { createColumns } from './columns';
 
+	let {
+		data
+	}: {
+		data: {
+			form: SuperValidated<Infer<FormSchema>>;
+			formDestroy: SuperValidated<Infer<DestroySchema>>;
+			formReset: SuperValidated<Infer<ResetSchema>>;
+		};
+	} = $props();
 	const form = superForm(data.form, {
-		validators: zodClient(formSchema)
+		resetForm: true,
+		validators: zodClient(formSchema),
+		onResult: ({ result }) => {
+			if (result.type === 'success') {
+				toast.success('User created successfully');
+				isOpen = false;
+			} else if (result.type === 'error') {
+				toast.error(result.error?.message || 'Failed to create user');
+			}
+		}
 	});
-
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, delayed } = form;
+	let isOpen = $state(false);
 </script>
 
-<div class="nk-content">
-	<div class="container-fluid">
-		<div class="nk-content-inner">
-			<div class="nk-content-body">
-				<div class="nk-block-head nk-block-head-sm">
-					<div class="nk-block-between">
-						<div class="nk-block-head-content">
-							<h3 class="nk-block-title page-title">Users</h3>
-							<div class="nk-block-des text-soft">
-								<p>You have total {data.countAllUser} users.</p>
-							</div>
-						</div>
-						<!-- .nk-block-head-content -->
-						<div class="nk-block-head-content">
-							<div class="toggle-wrap nk-block-tools-toggle">
-								<a
-									href="#"
-									class="btn btn-icon btn-trigger toggle-expand me-n1"
-									data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a
-								>
-								<div class="toggle-expand-content" data-content="pageMenu">
-									<ul class="nk-block-tools g-3">
-										<li>
-											<a href="#" class="btn btn-white btn-outline-light disabled"
-												><em class="icon ni ni-download-cloud"></em><span>Export</span></a
-											>
-										</li>
-										<li class="nk-block-tools-opt">
-											<a href="#addUserData" data-bs-toggle="modal" class="btn btn-primary">
-												<em class="icon ni ni-plus-round"></em><span>Add User</span>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<!-- .toggle-wrap -->
-						</div>
-						<!-- .nk-block-head-content -->
-					</div>
-					<!-- .nk-block-between -->
-				</div>
-				<!-- .nk-block-head -->
-				<div class="nk-block">
-					<div class="row g-gs">
-						{#each data.allUser as items, index (index)}
-							<div class="col-sm-6 col-lg-4 col-xxl-3">
-								<div class="card card-bordered">
-									<div class="card-inner">
-										<div class="team">
-											<div
-												class={`team-status ${items.emailVerified ? 'bg-success' : 'bg-danger'} text-white`}
-											>
-												<em class={`icon ni ${items.emailVerified ? 'ni-check' : 'ni-na'}`}></em>
-											</div>
-											<div class="team-options">
-												<div class="drodown">
-													<a
-														href="#"
-														class="dropdown-toggle btn btn-sm btn-icon btn-trigger"
-														data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a
-													>
-													<div class="dropdown-menu dropdown-menu-end">
-														<ul class="link-list-opt no-bdr">
-															<li>
-																<a href="#"
-																	><em class="icon ni ni-focus"></em><span>Quick View</span></a
-																>
-															</li>
-															<li>
-																<a href="#"
-																	><em class="icon ni ni-eye"></em><span>View Details</span></a
-																>
-															</li>
-															<li>
-																<a href="#"
-																	><em class="icon ni ni-mail"></em><span>Send Email</span></a
-																>
-															</li>
-															<li class="divider"></li>
-															<li>
-																<a href="#"
-																	><em class="icon ni ni-shield-star"></em><span>Reset Pass</span
-																	></a
-																>
-															</li>
-															<li>
-																<a href="#"
-																	><em class="icon ni ni-shield-off"></em><span>Reset 2FA</span></a
-																>
-															</li>
-															<li>
-																<a href="#"
-																	><em class="icon ni ni-na"></em><span>Suspend User</span></a
-																>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="user-card user-card-s2">
-												<div class="user-avatar md bg-primary">
-													<span>{items.initials}</span>
-													<div
-														class={`status dot dot-lg ${items.sessions.length > 0 ? 'dot-success' : 'dot-secondary'}`}
-													></div>
-												</div>
-												<div class="user-info">
-													<h6>{items.name}</h6>
-													<span class="sub-text">{items.email}</span>
-												</div>
-											</div>
-											<div class="team-details">
-												<p>{items.role?.name}</p>
-											</div>
-											<ul class="team-statistics">
-												<li><span>{items.projects.length}</span><span>Projects</span></li>
-												<li><span>87.5%</span><span>Performed</span></li>
-												<li><span>{items.tasks.length}</span><span>Tasks</span></li>
-											</ul>
-											<div class="team-view">
-												<a href="/panel/profile" class="btn btn-round btn-outline-light w-150px"
-													><span>View Profile</span></a
-												>
-											</div>
-										</div>
-										<!-- .team -->
-									</div>
-									<!-- .card-inner -->
-								</div>
-								<!-- .card -->
-							</div>
-							<!-- .col -->
-						{:else}
-							<div class="col-sm-6 col-lg-4 col-xxl-3">
-								Loading... <!-- ganti dengan skeleton -->
-							</div>
-							<!-- .col -->
-						{/each}
-					</div>
-				</div>
-				<!-- .nk-block -->
-			</div>
+<header
+	class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
+>
+	<div class="flex items-center gap-2 px-4">
+		<Sidebar.Trigger class="-ml-1" />
+		<Separator orientation="vertical" class="mr-2 data-[orientation=vertical]:h-4" />
+		<Breadcrumb.Root>
+			<Breadcrumb.List>
+				<Breadcrumb.Item class="hidden md:block">
+					<Breadcrumb.Link href="/panel">Panel</Breadcrumb.Link>
+				</Breadcrumb.Item>
+				<Breadcrumb.Separator class="hidden md:block" />
+				<Breadcrumb.Item>
+					<Breadcrumb.Page>User Management</Breadcrumb.Page>
+				</Breadcrumb.Item>
+			</Breadcrumb.List>
+		</Breadcrumb.Root>
+	</div>
+</header>
+<div class="hidden h-full flex-1 flex-col gap-8 p-8 md:flex">
+	<div class="flex items-center justify-between gap-2">
+		<div class="flex flex-col gap-1">
+			<h2 class="text-primary dark:text-primary text-2xl font-semibold tracking-tight">
+				User Management
+			</h2>
+			<p class="text-muted-foreground">You have {data?.countAllUser} user</p>
+		</div>
+		<div class="flex items-center gap-2">
+			<Button onclick={() => (isOpen = true)} size="sm" variant="outline"><Plus /> Add user</Button>
 		</div>
 	</div>
+	<DataTable data={data?.allUser} columns={createColumns(data?.formDestroy, data?.formReset)} />
 </div>
-<div class="modal fade" role="dialog" id="addUserData">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-			<div class="modal-body modal-body-md">
-				<div class="card card-bordered h-100">
-					<div class="card-inner">
-						<div class="card-head">
-							<h5 class="card-title">Add User</h5>
-						</div>
-						<form method="post">
-							<div class="form-group">
-								<label class="form-label" for="cf-full-name">Full Name</label>
-								<input
-									type="text"
-									id="cf-full-name"
-									name="name"
-									class="form-control"
-									placeholder="Enter your full name"
-									bind:value={formData.name}
-								/>
-								{#if formData.errors?.name}
-									<div class="text-danger">{formData.errors.name}</div>
-								{/if}
-							</div>
 
-							<div class="form-group">
-								<label class="form-label" for="cf-email-address">Email address</label>
-								<input
-									type="email"
-									id="cf-email-address"
-									name="email"
-									class="form-control"
-									placeholder="Enter your email address"
-									bind:value={formData.email}
-								/>
-								{#if formData.errors?.email}
-									<div class="text-danger">{formData.errors.email}</div>
-								{/if}
-							</div>
-
-							<div class="form-group">
-								<label class="form-label" for="password">Password</label>
-								<div class="form-control-wrap">
-									<a
-										tabindex="-1"
-										href="#"
-										class="form-icon form-icon-right passcode-switch lg"
-										data-target="password"
-									>
-										<em class="passcode-icon icon-show icon ni ni-eye"></em>
-										<em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
-									</a>
-									<input
-										type="password"
-										class="form-control form-control-lg"
-										id="password"
-										placeholder="Enter your passcode"
-										bind:value={formData.password}
-									/>
-								</div>
-								{#if formData.errors?.password}
-									<div class="text-danger">{formData.errors.password}</div>
-								{/if}
-							</div>
-							<div class="form-group">
-								<label class="form-label" for="confirm_password">Password Confirmation</label>
-								<div class="form-control-wrap">
-									<a
-										tabindex="-1"
-										href="#"
-										class="form-icon form-icon-right passcode-switch lg"
-										data-target="confirm_password"
-									>
-										<em class="passcode-icon icon-show icon ni ni-eye"></em>
-										<em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
-									</a>
-									<input
-										type="confirm_password"
-										class="form-control form-control-lg"
-										id="confirm_password"
-										placeholder="Re Enter your passcode"
-										bind:value={formData.confirmPassword}
-									/>
-								</div>
-								{#if formData.errors?.confirmPassword}
-									<div class="text-danger">{formData.errors.confirmPassword}</div>
-								{/if}
-							</div>
-
-							<div class="form-group">
-								<label class="form-label">Select Permission</label>
-								<div class="form-control-wrap">
-									<select class="form-select js-select2" data-content="addUserData" name="role" bind:value={formData.roleId}>
-										<option value="2">Admin</option>
-										<option value="3">Developer</option>
-									</select>
-									{#if formData.errors?.role}
-										<div class="text-danger">{formData.errors.role}</div>
-									{/if}
-								</div>
-							</div>
-
-							<div class="form-group">
-								<button type="submit" class="btn btn-md btn-primary">Add</button>
-							</div>
-						</form>
-					</div>
-				</div>
+<!-- Create user dialog -->
+<Dialog.Root bind:open={isOpen}>
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title class="text-primary font-semibold">Add User</Dialog.Title>
+			<Dialog.Description>
+				Use this form to add a new user to the system. Please fill in all the required fields
+				accurately. Ensure that the username and email are unique. You may optionally upload a
+				profile picture. Once all information is provided, click the "Save" button to create
+				the user account.
+			</Dialog.Description>
+		</Dialog.Header>
+		<form method="POST" action="?/create" use:enhance>
+			<Form.Field {form} name="name">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label for="name">{m.name_label()}</Form.Label>
+						<Input
+							{...props}
+							bind:value={$formData.name}
+							autocomplete="name"
+							required
+							placeholder={m.label_interupt({ name: m.name_label().toLocaleLowerCase() })}
+						/>
+					{/snippet}
+				</Form.Control>
+				<Form.Description />
+				<Form.FieldErrors />
+			</Form.Field>
+			<Form.Field {form} name="email">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label for="email">{m.email_label()}</Form.Label>
+						<Input
+							{...props}
+							bind:value={$formData.email}
+							autocomplete="email"
+							required
+							placeholder={m.label_interupt({ name: m.email_label().toLocaleLowerCase() })}
+						/>
+					{/snippet}
+				</Form.Control>
+				<Form.Description />
+				<Form.FieldErrors />
+			</Form.Field>
+			<Form.Field {form} name="password">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label for="password">{m.password_label()}</Form.Label>
+						<Input
+							{...props}
+							bind:value={$formData.password}
+							autocomplete="current-password"
+							type="password"
+							required
+							placeholder={m.label_interupt({ name: m.password_label().toLocaleLowerCase() })}
+						/>
+					{/snippet}
+				</Form.Control>
+				<Form.Description />
+				<Form.FieldErrors />
+			</Form.Field>
+			<Form.Field {form} name="confirmPassword">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label for="confirmPassword">{m.confirm_password_label()}</Form.Label>
+						<Input
+							{...props}
+							bind:value={$formData.confirmPassword}
+							autocomplete="off"
+							type="password"
+							required
+							placeholder={m.confirm_interupt()}
+						/>
+					{/snippet}
+				</Form.Control>
+				<Form.Description />
+				<Form.FieldErrors />
+			</Form.Field>
+			<Form.Field {form} name="roleId">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>Role Permission</Form.Label>
+						<Select.Root type="single" bind:value={$formData.roleId} name={props.name}>
+							<Select.Trigger {...props}>
+								{$formData.roleId ? $formData.roleId : 'Select a verified role to display'}
+							</Select.Trigger>
+							<Select.Content>
+								<Select.Item value="1" label="Superadmin" />
+								<Select.Item value="2" label="Admin" />
+							</Select.Content>
+						</Select.Root>
+					{/snippet}
+				</Form.Control>
+				<Form.Description />
+				<Form.FieldErrors />
+			</Form.Field>
+			<div class="mt-4">
+				{#if $delayed}
+					<Form.Button disabled  class="flex w-full justify-center">
+						<LoaderCircle class="animate-spin" />
+						Please wait
+					  </Form.Button>
+				{:else}
+					<Form.Button class="flex w-full justify-center">Confirm</Form.Button>
+				{/if}
 			</div>
-		</div>
-	</div>
-</div>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

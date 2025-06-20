@@ -1,39 +1,33 @@
 <script lang="ts">
 	import { page } from '$app/state';
-  console.log("error panel", page.error.status);
+	console.log("error panel", page.error?.status);
 </script>
-<svelte:head>
-    <link rel="stylesheet" href="/assets/css/dashlite.css?ver=3.0.3">
-    <link id="skin-default" rel="stylesheet" href="/assets/css/theme.css?ver=3.0.3">
-    <!-- JavaScript -->
-    <script src="/assets/js/bundle.js?ver=3.0.3"></script>
-    <script src="/assets/js/scripts.js?ver=3.0.3"></script>
-</svelte:head>
-<body class="nk-body ui-rounder npc-default pg-error">
-  <div class="nk-app-root">
-      <!-- main @s -->
-      <div class="nk-main ">
-          <!-- wrap @s -->
-          <div class="nk-wrap nk-wrap-nosidebar">
-              <!-- content @s -->
-              <div class="nk-content ">
-                  <div class="nk-block nk-block-middle wide-md mx-auto">
-                      <div class="nk-block-content nk-error-ld text-center">
-                          <img class="nk-error-gfx" src="/images/gfx/error-404.svg" alt="">
-                          <div class="wide-xs mx-auto">
-                              <h3 class="nk-error-title">{page.status} - {page.error?.message} (panel)</h3>
-                              <p class="nk-error-text">We are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.</p>
-                              <a href="/panel" class="btn btn-lg btn-primary mt-2">Back To Home</a>
-                          </div>
-                      </div>
-                  </div><!-- .nk-block -->
-              </div>
-              <!-- wrap @e -->
-          </div>
-          <!-- content @e -->
-      </div>
-      <!-- main @e -->
-  </div>
-  <!-- app-root @e -->
 
-</body>
+<svelte:head>
+</svelte:head>
+
+<div class="bg-white text-gray-800">
+	<div class="min-h-screen flex flex-col">
+		<!-- main -->
+		<div class="flex-grow">
+			<!-- content -->
+			<div class="flex justify-center items-center min-h-screen px-4">
+				<div class="text-center space-y-6 max-w-md w-full">
+					<img class="mx-auto h-64" src="/images/gfx/error-404.svg" alt="Error 404" />
+					<div>
+						<h3 class="text-2xl font-bold">
+							{page.status} - {page.error?.message} (panel)
+						</h3>
+						<p class="mt-4 text-gray-600">
+							Kami mohon maaf atas ketidaknyamanan ini. Halaman yang Anda akses mungkin telah dihapus atau tidak pernah ada.
+						</p>
+						<a href="/panel" class="inline-block mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg text-lg hover:bg-blue-700 transition">
+							Kembali ke Beranda
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- content end -->
+		</div>
+	</div>
+</div>
