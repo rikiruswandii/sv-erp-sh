@@ -40,3 +40,4 @@
 ## ⚠️ Lisensi Proprietary
 
 © PT. Pratama Solusi Teknologi. Seluruh hak cipta dilindungi undang-undang.
+Lihat detail lengkap di [LICENSE](./LICENSE).
