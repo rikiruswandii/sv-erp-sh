@@ -9,6 +9,7 @@
 	import MapIcon from "@lucide/svelte/icons/map";
 	import Settings2Icon from "@lucide/svelte/icons/settings-2";
 	import SquareTerminalIcon from "@lucide/svelte/icons/square-terminal";
+	
 
 	// This is sample data.
 	const items = {
@@ -34,7 +35,6 @@
 				title: "Playground",
 				url: "#",
 				icon: SquareTerminalIcon,
-				isActive: true,
 				items: [
 					{
 						title: "History",
@@ -143,6 +143,23 @@
 	import TeamSwitcher from "./team-switcher.svelte";
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 	import type { ComponentProps } from "svelte";
+	import { page } from '$app/state';
+	let currentPath  = $state(page.url.pathname);
+	let navItems = $state<Array<any>>([]);
+
+	$effect(() => {
+		navItems = items.navMain.map((item) => {
+			const isActive = item.url === currentPath || item.items?.some(sub => sub.url === currentPath);
+			return {
+				...item,
+				isActive,
+				items: item.items?.map(sub => ({
+					...sub,
+					isActive: sub.url === currentPath,
+				})) ?? [],
+			};
+		});
+	});
 
 	let {
         data,
@@ -157,7 +174,7 @@
 		<TeamSwitcher teams={items.teams} />
 	</Sidebar.Header>
 	<Sidebar.Content>
-		<NavMain items={items.navMain} />
+		<NavMain items={navItems} />
 		<NavProjects projects={items.projects} />
 	</Sidebar.Content>
 	<Sidebar.Footer>
