@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+
    let { data } = $props();
 </script>
 
-<h1>HELOOOOOO PROFILE</h1>
+<div class="flexi items-center p-2">
+	<Skeleton />
+</div>
