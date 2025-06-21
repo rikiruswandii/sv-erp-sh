@@ -5,17 +5,21 @@
 	import { useSidebar } from "$lib/components/ui/sidebar/index.js";
 	import BadgeCheckIcon from "@lucide/svelte/icons/badge-check";
 	import BellIcon from "@lucide/svelte/icons/bell";
+	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
 	import ChevronsUpDownIcon from "@lucide/svelte/icons/chevrons-up-down";
 	import CreditCardIcon from "@lucide/svelte/icons/credit-card";
 	import LogOutIcon from "@lucide/svelte/icons/log-out";
-	import SparklesIcon from "@lucide/svelte/icons/sparkles";
 	import Sun from "@lucide/svelte/icons/sun";
   	import Moon from "@lucide/svelte/icons/moon";
   	import { toggleMode } from "mode-watcher";
   	import { Button } from "$lib/components/ui/button/index.js";
+	  import * as Dialog from '$lib/components/ui/dialog';
 
 	let { user }: { user: { name: string; email: string; avatar: string } } = $props();
 	const sidebar = useSidebar();
+
+	let isOpenLogout = $state(false);
+	let isSubmitting = $state(false);
 </script>
 
 <Sidebar.Menu>
@@ -89,10 +93,36 @@
 				</DropdownMenu.Group>
 				<DropdownMenu.Separator />
 				<DropdownMenu.Item>
-					<LogOutIcon />
-					Log out
+					<Button onclick={() => (isOpenLogout = true)} size="sm" variant="ghost"><LogOutIcon /> Log out</Button>
 				</DropdownMenu.Item>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</Sidebar.MenuItem>
 </Sidebar.Menu>
+<!-- User logout dialog -->
+<Dialog.Root bind:open={isOpenLogout}>
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title class="text-primary font-semibold">Log Out</Dialog.Title>
+			<Dialog.Description>
+				Are you sure you want to log out? You will need to sign in again to access the dashboard.
+			</Dialog.Description>
+		</Dialog.Header>		
+		<!-- Form logout -->
+		<form method="POST" action="/api/v1/auth/logout"  onsubmit={() => (isSubmitting = true)}>
+			<div class="flex justify-end gap-2">
+				<Button type="button" variant="outline" onclick={() => isOpenLogout = false}>
+					Cancel
+				</Button>						
+				{#if isSubmitting}
+					<Button disabled  variant="destructive">
+						<LoaderCircle class="animate-spin" />
+						Please wait
+				  	</Button>
+				{:else}
+					<Button type="submit" variant="destructive">Logout</Button>
+				{/if}
+			</div>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
