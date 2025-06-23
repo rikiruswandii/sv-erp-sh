@@ -1,4 +1,4 @@
-import { generateUserId } from '../../hooks/use-id';
+import { generateUserId } from '../../hooks/useUserId';
 import { db } from './index';
 import { roles, users } from './schema';
 import { hash } from '@node-rs/argon2';
@@ -43,6 +43,7 @@ async function seed() {
             id: generateUserId(),
             roleId: '1', // superadmin
             name: 'Developer',
+            username: 'developer',
             email: 'developer@example.com',
             passwordHash,
             emailVerified: true
@@ -51,6 +52,7 @@ async function seed() {
             id: generateUserId(),
             roleId: '2', // admin
             name: 'Admin',
+            username: 'admin',
             email: 'admin@example.com',
             passwordHash,
             emailVerified: true
@@ -62,6 +64,7 @@ async function seed() {
             .onDuplicateKeyUpdate({
                 set: {
                     name: user.name,
+                    username: user.username,
                     email: user.email,
                     roleId: user.roleId
                 }
