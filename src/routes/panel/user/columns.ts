@@ -44,17 +44,28 @@ export function createColumns(
         {
             accessorKey: "name",
             header: "Name",
+            header: ({ column }) =>
+                renderComponent(DataTableEmailButton, {
+                    label: 'Name',
+                    onclick: column.getToggleSortingHandler(),
+                }),
         },
         {
             accessorKey: "email",
             header: ({ column }) =>
                 renderComponent(DataTableEmailButton, {
+                    label: 'Email',
                     onclick: column.getToggleSortingHandler(),
                 }),
         },
         {
             accessorKey: "role.name",
             header: "Role",
+            header: ({ column }) =>
+                renderComponent(DataTableEmailButton, {
+                    label: 'Role',
+                    onclick: column.getToggleSortingHandler(),
+                }),
         },
         {
             accessorKey: "createdAt",
@@ -67,6 +78,11 @@ export function createColumns(
                     year: "numeric",
                 });
             },
+            header: ({ column }) =>
+                renderComponent(DataTableEmailButton, {
+                    label: 'Created At',
+                    onclick: column.getToggleSortingHandler(),
+                }),
         },
         {
             accessorKey: "updatedAt",
@@ -79,6 +95,11 @@ export function createColumns(
                     year: "numeric",
                 });
             },
+            header: ({ column }) =>
+                renderComponent(DataTableEmailButton, {
+                    label: 'Updated At',
+                    onclick: column.getToggleSortingHandler(),
+                }),
         },        
         {
             id: "actions",

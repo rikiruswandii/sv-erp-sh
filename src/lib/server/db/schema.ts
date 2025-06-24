@@ -141,6 +141,7 @@ export const pages = mysqlTable('pages', {
 	id: varchar('id', { length: 36 }).primaryKey(),
 	slug: varchar('slug', { length: 255 }).notNull().unique(), // contoh: 'about', 'pricing'
 	title: varchar('title', { length: 255 }).notNull(),
+	description: text('description'),
 	content: text('content'), // isi HTML / markdown / rich text
 	published: boolean('published').default(false),
 	publishedAt: timestamp('published_at'),

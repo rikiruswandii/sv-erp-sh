@@ -9,8 +9,8 @@
 	import MapIcon from "@lucide/svelte/icons/map";
 	import Settings2Icon from "@lucide/svelte/icons/settings-2";
 	import SquareTerminalIcon from "@lucide/svelte/icons/square-terminal";
+	import Text from "@lucide/svelte/icons/text";
 	
-
 	// This is sample data.
 	const items = {
 		teams: [
@@ -70,13 +70,13 @@
 				],
 			},
 			{
-				title: "Documentation",
+				title: "Front",
 				url: "#",
-				icon: BookOpenIcon,
+				icon: Text,
 				items: [
 					{
-						title: "Introduction",
-						url: "#",
+						title: "Pages",
+						url: "/panel/pages",
 					},
 					{
 						title: "Get Started",

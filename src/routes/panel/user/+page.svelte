@@ -76,6 +76,7 @@
 			<Button onclick={() => (isOpen = true)} size="sm" variant="outline"><Plus /> Add user</Button>
 		</div>
 	</div>
+	<Separator />
 	<DataTable data={data?.allUser} columns={createColumns(data?.formDestroy, data?.formReset)} />
 </div>
 

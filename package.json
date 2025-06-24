@@ -75,9 +75,11 @@
 		"@node-rs/argon2": "^2.0.2",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
+		"@tadashi/svelte-editor-quill": "^4.0.0",
 		"dotenv": "^16.5.0",
 		"drizzle-orm": "^0.40.1",
 		"mysql2": "^3.14.1",
+		"quill": "^2.0.3",
 		"sv-erp-sh": "file:",
 		"ziggy-js": "^2.5.3",
 		"zod": "^3.25.56"
