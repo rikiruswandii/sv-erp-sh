@@ -6,11 +6,16 @@
 	import { Button } from '$lib/components/ui/button';
 	import {createColumns} from './columns'
 	import DataTable from './data-table.svelte';
+	import type { Page } from "$lib/types"
+	import type { IdSchema } from "$lib/schemas/destroy";
+	import type { SuperValidated, Infer } from "sveltekit-superforms";
 
 	let {
 		data
-	} : {page: any} = $props();
-	let isOpen = $state(false);
+	} : {data : {
+		page: Page[];
+		formDestroy: SuperValidated<Infer<IdSchema>>;
+	}} = $props();
 
     const pages = {
         title: 'Page Management',
@@ -54,5 +59,5 @@
 		</div>
 	</div>
     <Separator />
-	<DataTable data={data?.page} columns={createColumns()} />
+	<DataTable data={data?.page} columns={createColumns(data?.formDestroy)} />
 </div>

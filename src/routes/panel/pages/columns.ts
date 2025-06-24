@@ -4,8 +4,12 @@ import { Checkbox } from "$lib/components/ui/checkbox/index.js";
 import DataTableActions from "./data-table-actions.svelte";
 import DataTableHeaderButton from "$lib/components/data-table-header-button.svelte";
 import type { Page } from "$lib/types"
+import type { IdSchema } from "$lib/schemas/destroy";
+import type { SuperValidated, Infer } from "sveltekit-superforms";
 
-export function createColumns(): ColumnDef<Page>[] {
+export function createColumns(
+    formDestroy: SuperValidated<Infer<IdSchema>>
+): ColumnDef<Page>[] {
     return [
         {
             id: "select",
@@ -80,6 +84,7 @@ export function createColumns(): ColumnDef<Page>[] {
             cell: ({ row }) => {
                 return renderComponent(DataTableActions, {
                     id: row.original.id,
+                    formDestroy,
                 });
             },
         },
