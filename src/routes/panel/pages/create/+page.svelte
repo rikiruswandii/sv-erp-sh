@@ -14,6 +14,7 @@
 	import { toast } from 'svelte-sonner';
 	import RichEditor from '$lib/components/rich-editor.svelte';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
+	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
 
 	let { data }: { data: { form: SuperValidated<Infer<PageSchema>> } } = $props();
 
@@ -66,10 +67,10 @@
 			<h2 class="text-primary dark:text-primary text-2xl font-semibold tracking-tight">
 				Create Page
 			</h2>
-			<p class="text-muted-foreground">You have {'0'} page</p>
+			<p class="text-muted-foreground">Manage your pages efficiently with our intuitive interface.</p>
 		</div>
 		<div class="flex items-center gap-2">
-			<Button href="/panel/page" size="sm" variant="outline"><Reply /> Back</Button>
+			<Button href="/panel/pages" size="sm" variant="outline"><Reply /> Back</Button>
 		</div>
 	</div>
 	<Separator />
@@ -145,7 +146,14 @@
 				<Form.Button type="reset" variant="secondary" size="sm" class="w-full md:w-auto">
 					Reset
 				</Form.Button>
-				<Form.Button type="submit" size="sm" class="w-full md:w-auto">Create Page</Form.Button>
+				{#if $delayed}
+                    <Button disabled size="sm" class="w-full md:w-auto">
+						<LoaderCircle class="animate-spin" />
+						Please wait
+				  	</Button>
+                {:else}
+				    <Form.Button type="submit" size="sm" class="w-full md:w-auto">Create Page</Form.Button>
+                {/if}
 			</div>
 		</div>
 		<!-- <div class="grid grid-cols-5 grid-rows-5 gap-4">

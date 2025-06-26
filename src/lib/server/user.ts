@@ -52,3 +52,7 @@ export async function updateUserPassword(userId: string, passwordHash: string) {
 export async function deleteUser(id: string) {
   return await db.delete(table.users).where(eq(table.users.id, id));
 }
+
+export function getPageById(page: any) {
+    throw new Error('Function not implemented.');
+}

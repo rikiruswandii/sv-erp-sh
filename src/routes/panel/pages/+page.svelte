@@ -52,7 +52,7 @@
 			<h2 class="text-primary dark:text-primary text-2xl font-semibold tracking-tight">
 				Page Management
 			</h2>
-			<p class="text-muted-foreground">You have {'0'} page</p>
+			<p class="text-muted-foreground">You have {data?.page.length} page</p>
 		</div>
 		<div class="flex items-center gap-2">
 			<Button href="/panel/pages/create" size="sm" variant="outline"><Plus /> Add page</Button>

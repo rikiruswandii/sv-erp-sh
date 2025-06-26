@@ -47,11 +47,11 @@
 			</DropdownMenu.Item>
 		</DropdownMenu.Group>
 		<DropdownMenu.Item>
-			<Button href={`/panel/page/update/${id}`} size="sm" variant="ghost"><SquarePen /> Edit page</Button>
+			<Button href={`/panel/pages/update/${id}`} size="sm" variant="ghost"><SquarePen /> Edit page</Button>
 		</DropdownMenu.Item>
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item>
-			<Button href={`/panel/page/view/${id}`} size="sm" variant="ghost"><Eye /> View page</Button>
+			<Button href={`/panel/pages/view/${id}`} size="sm" variant="ghost"><Eye /> View page</Button>
 		</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
