@@ -10,18 +10,15 @@
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { pageSchema, type PageSchema } from '$lib/schemas/page/page';
-	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { toast } from 'svelte-sonner';
-	import RichEditor from '$lib/components/rich-editor.svelte';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import type { Page } from '$lib/types';
-	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	let {
 		data
 	}: {
 		data: {
-			page: Page[];
+			page: Page;
 			form: SuperValidated<Infer<PageSchema>>;
 		};
 	} = $props();
@@ -30,14 +27,9 @@
 		title: 'Detail Page',
 		excerpt: 'View detailed information about your page clearly and efficiently.'
 	};
+	console.log('Konten dari Quill:', data.page.content);
 
 	const form = superForm(data.form);
-	function decodeHTML(html) {
-		const parser = new DOMParser();
-		return parser.parseFromString(html, 'text/html').documentElement.textContent;
-	}
-	let content = decodeHTML(data?.page.content);
-
 	const { form: formData } = form;
 </script>
 
@@ -137,8 +129,10 @@
 				<Form.FieldErrors />
 			</Form.Field>
 		</div>
-		<div class="col-span-5 row-span-3 row-start-2 border border-border rounded-lg">
-			{@html content}
+		<div class="border-border col-span-5 row-span-3 row-start-2 rounded-lg border">
+			<div class="prose max-w-none">
+				{@html data.page.content}
+			</div>
 		</div>
 		<div class="col-span-5 mt-4 flex items-center justify-end gap-2"></div>
 	</div>

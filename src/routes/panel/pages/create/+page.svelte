@@ -15,6 +15,7 @@
 	import RichEditor from '$lib/components/rich-editor.svelte';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
+	import { goto } from '$app/navigation';
 
 	let { data }: { data: { form: SuperValidated<Infer<PageSchema>> } } = $props();
 
@@ -24,9 +25,15 @@
 	};
 	const form = superForm(data.form, {
 		validators: zodClient(pageSchema),
-		onResult: ({ result }) => {
+		onResult: async ({ result }) => {
 			if (result.type === 'success') {
 				toast.success('Page created successfully');
+				try {
+					await goto('/panel/pages', { invalidateAll: true });
+					console.log('Navigasi berhasil');
+				} catch (e) {
+					console.error('Gagal navigasi:', e);
+				}
 			} else if (result.type === 'error') {
 				toast.error(result.error?.message || 'Failed to create page');
 			}
