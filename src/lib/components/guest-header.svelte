@@ -55,23 +55,23 @@
 			class="hidden flex-1 justify-center gap-6 text-sm font-semibold text-blue-900 lg:flex dark:text-white"
 		>
 			<a href="#home" class="group relative inline-block"
-				>Home
+				>Beranda
 				<span
 					class="absolute -bottom-1 left-1/2 h-0.5 w-0 origin-center -translate-x-1/2 transform bg-sky-500 transition-all duration-300 group-hover:w-full"
 				></span>
 			</a>
 			<a href="#service" class="group relative inline-block"
-				>Service<span
+				>Layanan<span
 					class="absolute -bottom-1 left-1/2 h-0.5 w-0 origin-center -translate-x-1/2 transform bg-sky-500 transition-all duration-300 group-hover:w-full"
 				></span></a
 			>
 			<a href="#team" class="group relative inline-block"
-				>Team<span
+				>Tim<span
 					class="absolute -bottom-1 left-1/2 h-0.5 w-0 origin-center -translate-x-1/2 transform bg-sky-500 transition-all duration-300 group-hover:w-full"
 				></span></a
 			>
 			<a href="#contact" class="group relative inline-block"
-				>Contact<span
+				>Kontak<span
 					class="absolute -bottom-1 left-1/2 h-0.5 w-0 origin-center -translate-x-1/2 transform bg-sky-500 transition-all duration-300 group-hover:w-full"
 				></span></a
 			>

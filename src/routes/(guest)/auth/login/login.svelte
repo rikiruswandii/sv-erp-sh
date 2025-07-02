@@ -12,6 +12,7 @@
 	import { formSchema, type FormSchema } from '$lib/schemas/auth/login';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { Skeleton } from '$lib/components/ui/skeleton';
 
 	let { data }: { data: { form: SuperValidated<Infer<FormSchema>> } } = $props();
 
@@ -22,7 +23,9 @@
 	const { form: formData, enhance } = form;
 </script>
 
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+<div
+	class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-white px-6 py-12 lg:px-8"
+>
 	<a href="/" class="sm:mx-auto sm:w-full sm:max-w-sm">
 		<img
 			class="mx-auto h-10 w-auto"

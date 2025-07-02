@@ -6,7 +6,17 @@
 	import SectionNewsletter from "$lib/components/section-newsletter.svelte";
 	import SectionService from "$lib/components/section-service.svelte";
 	import SectionTeam from "$lib/components/section-team.svelte";
+	import { APP_CONFIG } from "$lib/config/app";
+
+	let pages = {
+		title: APP_CONFIG.app_name,
+		excerpt: APP_CONFIG.about
+	}
 </script>
+<svelte:head>
+  <title>{pages.title}</title>
+  <meta name="description" content={pages.excerpt} />
+</svelte:head>
 
 <!-- header -->
 <GuestHeader />

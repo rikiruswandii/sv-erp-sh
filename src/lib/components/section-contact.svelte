@@ -39,7 +39,11 @@
 
 			const result = await res.json();
 
-			if (!res.ok) throw new Error(result.errors.email || 'Terjadi kesalahan');
+			if (!res.ok) {
+				const errorMessage =
+					result.errors?.message || JSON.stringify(result.errors) || 'Terjadi kesalahan';
+				throw new Error(errorMessage);
+			}
 
 			toast.success('Pesan berhasil dikirim!');
 			data = {
@@ -276,12 +280,12 @@
 		<div class="flex justify-end gap-2">
 			<Button type="button" variant="outline" onclick={() => (isOpen = false)}>Batal</Button>
 			{#if isSubmitting}
-				<Button disabled variant="destructive">
+				<Button disabled>
 					<LoaderCircle class="animate-spin" />
 					Harap tunggu...
 				</Button>
 			{:else}
-				<Button type="button" variant="destructive" onclick={handleSubmit}>Ya</Button>
+				<Button type="button" onclick={handleSubmit}>Ya</Button>
 			{/if}
 		</div>
 	</Dialog.Content>

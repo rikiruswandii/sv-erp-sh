@@ -17,7 +17,7 @@
 						alt="PT Pratama Solusi Teknologi"
 					/>
 				</a>
-				<p class="text-sm text-gray-500 dark:text-gray-400">
+				<p class="text-sm text-gray-500 dark:text-gray-400 text-justify">
 					{APP_CONFIG.about}
 				</p>
 			</div>

@@ -4,14 +4,14 @@
 	import { Button } from './ui/button';
 	import { toast } from 'svelte-sonner';
 
-	let isOpen = false;
-	let isSubmitting = false;
-  let email = '';
-  
+	let isOpen = $state(false);
+	let isSubmitting = $state(false);
+	let email = $state('');
+
 	async function handleSubmit() {
 		isSubmitting = true;
-    const formData = new FormData();
-    formData.append('email', email);
+		const formData = new FormData();
+		formData.append('email', email);
 
 		try {
 			const res = await fetch('/api/v1/subscription', {
@@ -21,15 +21,19 @@
 
 			const result = await res.json();
 
-			if (!res.ok) throw new Error(result.errors.email || 'Terjadi kesalahan');
+			if (!res.ok) {
+				const errorMessage =
+					result.errors?.email || JSON.stringify(result.errors) || 'Terjadi kesalahan';
+				throw new Error(errorMessage);
+			}
 
 			toast.success('Berhasil berlangganan!');
-      email = '';
+			email = '';
 		} catch (e: any) {
-			toast.error(`Gagal: ${e.message}`);
+			toast.error(`${e.message}`);
 		} finally {
 			isSubmitting = false;
-      isOpen = false;
+			isOpen = false;
 		}
 	}
 </script>
@@ -55,13 +59,13 @@
 						bind:value={email}
 						autocomplete="email"
 						required
-						class="min-w-0 flex-auto rounded-md bg-gray-100 px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500"
+						class="min-w-0 flex-auto rounded-md bg-gray-100 px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500"
 						placeholder="Masukkan email Anda"
 					/>
 					<button
 						type="button"
 						on:click={() => (isOpen = true)}
-						class="flex-none rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+						class="flex-none rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
 					>
 						Berlangganan
 					</button>
@@ -142,12 +146,12 @@
 		<div class="flex justify-end gap-2">
 			<Button type="button" variant="outline" onclick={() => (isOpen = false)}>Batal</Button>
 			{#if isSubmitting}
-				<Button disabled variant="destructive">
+				<Button disabled>
 					<LoaderCircle class="animate-spin" />
 					Harap tunggu...
 				</Button>
 			{:else}
-				<Button type="button" variant="destructive" onclick={handleSubmit}>Ya</Button>
+				<Button type="button" onclick={handleSubmit}>Ya</Button>
 			{/if}
 		</div>
 	</Dialog.Content>
