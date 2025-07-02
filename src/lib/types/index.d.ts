@@ -52,6 +52,12 @@ export interface Page {
   updated_at: string;
   [key: string]: unknown;
 }
+export interface Subscription {
+  id: string;
+  email: string;
+  created_at: string;
+  [key: string]: unknown;
+}
 
 interface ContactFormData {
   firstName: string;

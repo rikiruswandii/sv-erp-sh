@@ -97,7 +97,7 @@
 					},
 					{
 						title: 'Subscription',
-						url: '#',
+						url: '/panel/subscription',
 						icon: MailCheck
 					}
 				]

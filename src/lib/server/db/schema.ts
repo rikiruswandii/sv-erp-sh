@@ -1,4 +1,4 @@
-import { mysqlTable, varchar, timestamp, boolean, text, mysqlEnum, date, index } from 'drizzle-orm/mysql-core';
+import { mysqlTable, varchar, timestamp, boolean, text, mysqlEnum, date, index, datetime } from 'drizzle-orm/mysql-core';
 import { sql } from 'drizzle-orm';
 import { relations } from 'drizzle-orm';
 import { integer } from 'drizzle-orm/gel-core';
@@ -234,7 +234,12 @@ export const newsletterSubscriptions = mysqlTable('newsletter_subscriptions', {
   id: varchar('id', { length: 36 }).primaryKey(),
   email: varchar('email', { length: 150 }).notNull(),
   createdAt: varchar('created_at', { length: 50 }).default(sql`CURRENT_TIMESTAMP`),
+
+  isSubscribed: boolean('is_subscribed').default(true),
+  unsubscribeToken: varchar('unsubscribe_token', { length: 64 }),
+  unsubscribedAt: datetime('unsubscribed_at'),
 });
+
 
 export const userProfilesRelations = relations(userProfiles, ({ one }) => ({
 	user: one(users, { fields: [userProfiles.userId], references: [users.id] })
