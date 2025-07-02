@@ -6,6 +6,7 @@ import DataTableHeaderButton from "$lib/components/data-table-header-button.svel
 import type { Page } from "$lib/types"
 import type { IdSchema } from "$lib/schemas/destroy";
 import type { SuperValidated, Infer } from "sveltekit-superforms";
+import ColumnHeader from "$lib/components/column-header.svelte";
 
 export function createColumns(
     formDestroy: SuperValidated<Infer<IdSchema>>
@@ -33,51 +34,55 @@ export function createColumns(
           },
         {
             accessorKey: "title",
-            header: ({ column }) =>
-                renderComponent(DataTableHeaderButton, {
-                    label: 'Title',
-                    onclick: column.getToggleSortingHandler(),
-                }),
+            header: ({ column }) => {
+				return renderComponent(ColumnHeader, {
+					column,
+					title: 'Title'
+				});
+			}
         },
         {
             accessorKey: "slug",
-            header: ({ column }) =>
-                renderComponent(DataTableHeaderButton, {
-                    label: 'Slug',
-                    onclick: column.getToggleSortingHandler(),
-                }),
+            header: ({ column }) => {
+                            return renderComponent(ColumnHeader, {
+                                column,
+                                title: 'Slug'
+                            });
+                        }
         },
         {
             accessorKey: "createdAt",
             cell: ({ row }) => {
-                const date = new Date(row.original.createdAt);
-                return date.toLocaleDateString("en-EN", {
+                const date = new Date(row.original.createdAt as string | number | Date);
+                return date.toLocaleDateString("en-ID", {
                     day: "2-digit",
                     month: "long",
                     year: "numeric",
                 });
             },
-            header: ({ column }) =>
-                renderComponent(DataTableHeaderButton, {
-                    label: 'Created At',
-                    onclick: column.getToggleSortingHandler(),
-                }),
+            header: ({ column }) => {
+                            return renderComponent(ColumnHeader, {
+                                column,
+                                title: 'Created At'
+                            });
+                        }
         },
         {
             accessorKey: "updatedAt",
             cell: ({ row }) => {
-                const date = new Date(row.original.updatedAt);
+                const date = new Date(row.original.updatedAt as string | number | Date);
                 return date.toLocaleDateString("en-EN", {
                     day: "2-digit",
                     month: "long",
                     year: "numeric",
                 });
             },
-            header: ({ column }) =>
-                renderComponent(DataTableHeaderButton, {
-                    label: 'Updated At',
-                    onclick: column.getToggleSortingHandler(),
-                }),
+            header: ({ column }) => {
+				return renderComponent(ColumnHeader, {
+					column,
+					title: 'Updated At'
+				});
+			}
         },        
         {
             id: "actions",
@@ -87,6 +92,12 @@ export function createColumns(
                     formDestroy,
                 });
             },
+            header: ({ column }) => {
+                            return renderComponent(ColumnHeader, {
+                                column,
+                                title: 'Action'
+                            });
+                        }
         },
     ];
 }

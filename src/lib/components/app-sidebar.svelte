@@ -92,7 +92,7 @@
 					},
 					{
 						title: 'Contact',
-						url: '#',
+						url: '/panel/contact',
 						icon: Contact
 					},
 					{

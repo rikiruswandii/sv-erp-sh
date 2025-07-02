@@ -1,11 +1,12 @@
 import type { ColumnDef } from '@tanstack/table-core';
-import { renderComponent } from '$lib/components/ui/data-table/index.js';
+import { renderComponent, renderSnippet } from '$lib/components/ui/data-table/index.js';
 import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 import DataTableActions from './data-table-actions.svelte';
 import DataTableHeaderButton from '$lib/components/data-table-header-button.svelte';
 import type { Subscription } from '$lib/types';
 import type { IdSchema } from '$lib/schemas/destroy';
 import type { SuperValidated, Infer } from 'sveltekit-superforms';
+import ColumnHeader from '$lib/components/column-header.svelte';
 
 export function createColumns(
 	formDestroy: SuperValidated<Infer<IdSchema>>
@@ -31,11 +32,12 @@ export function createColumns(
 		},
 		{
 			accessorKey: 'email',
-			header: ({ column }) =>
-				renderComponent(DataTableHeaderButton, {
-					label: 'email',
-					onclick: column.getToggleSortingHandler()
-				})
+			header: ({ column }) =>{
+				return renderComponent(ColumnHeader, {
+					column,
+					title: 'Email'
+				});
+			}
 		},
 		{
 			accessorKey: 'createdAt',
@@ -47,11 +49,12 @@ export function createColumns(
 					year: 'numeric'
 				});
 			},
-			header: ({ column }) =>
-				renderComponent(DataTableHeaderButton, {
-					label: 'Subscribe At',
-					onclick: column.getToggleSortingHandler()
-				})
+			header: ({ column }) => {
+				return renderComponent(ColumnHeader, {
+					column,
+					title: 'Created At'
+				});
+			}
 		},
 		{
 			id: 'actions',
@@ -59,6 +62,12 @@ export function createColumns(
 				return renderComponent(DataTableActions, {
 					id: row.original.id,
 					formDestroy
+				});
+			},
+			header: ({ column }) => {
+				return renderComponent(ColumnHeader, {
+					column,
+					title: 'Action'
 				});
 			}
 		}

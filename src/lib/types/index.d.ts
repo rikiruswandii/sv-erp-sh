@@ -52,10 +52,29 @@ export interface Page {
   updated_at: string;
   [key: string]: unknown;
 }
+export interface ContactMessage {
+  id: string;
+  firstName: string;
+  lastName: string;
+  company: string;
+  email: string;
+  phoneNumber: string;
+  message: string;
+  agreedPolicy: boolean;
+  isRead: boolean;
+  isReplied: boolean;
+  replyMessage: string;
+  repliedAt: string;
+  createdAt: string;
+  [key: string]: unknown;
+}
 export interface Subscription {
   id: string;
   email: string;
-  created_at: string;
+  isSubscribed: boolean;
+  unsubscribeToken: string;
+  unsubscribedAt: string;
+  createdAt: string;
   [key: string]: unknown;
 }
 

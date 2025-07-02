@@ -227,6 +227,10 @@ export const contacts = mysqlTable('contacts', {
   phoneNumber: varchar('phone_number', { length: 20 }),
   message: text('message').notNull(),
   agreedPolicy: boolean('agreed_policy').notNull().default(false),
+  isRead: boolean('is_read').notNull().default(false),
+  isReplied: boolean('is_replied').notNull().default(false),
+  replyMessage: text('reply_message'),
+  repliedAt: datetime('replied_at'),
   createdAt: varchar('created_at', { length: 50 }).default(sql`CURRENT_TIMESTAMP`),
 });
 
