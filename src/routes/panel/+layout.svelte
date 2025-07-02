@@ -13,7 +13,7 @@
 </script>
     
 <ModeWatcher />
-<Toaster />
+<Toaster position="top-center" />
 <Sidebar.Provider>
 	<AppSidebar data={data} />
 	<Sidebar.Inset>

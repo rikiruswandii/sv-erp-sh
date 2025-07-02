@@ -53,18 +53,12 @@ export interface Page {
   [key: string]: unknown;
 }
 
-export type BreadcrumbItem =
-  | {
-      type: 'link';
-      href: string;
-      label: string;
-    }
-  | {
-      type: 'page';
-      label: string;
-    }
-  | {
-      type: 'dropdown';
-      icon?: boolean;
-      items: string[];
-    };
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  company: string;
+  email: string;
+  phoneNumber: string;
+  message: string;
+  agreedPolicy: boolean;
+}

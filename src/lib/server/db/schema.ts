@@ -218,6 +218,24 @@ export const comments = mysqlTable('comments', {
 }, (table) => [index('idx_comments_id').on(table.entityId)
 ]);
 
+export const contacts = mysqlTable('contacts', {
+  id: varchar('id', { length: 36 }).primaryKey(),
+  firstName: varchar('first_name', { length: 100 }).notNull(),
+  lastName: varchar('last_name', { length: 100 }).notNull(),
+  company: varchar('company', { length: 150 }),
+  email: varchar('email', { length: 150 }).notNull(),
+  phoneNumber: varchar('phone_number', { length: 20 }),
+  message: text('message').notNull(),
+  agreedPolicy: boolean('agreed_policy').notNull().default(false),
+  createdAt: varchar('created_at', { length: 50 }).default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const newsletterSubscriptions = mysqlTable('newsletter_subscriptions', {
+  id: varchar('id', { length: 36 }).primaryKey(),
+  email: varchar('email', { length: 150 }).notNull(),
+  createdAt: varchar('created_at', { length: 50 }).default(sql`CURRENT_TIMESTAMP`),
+});
+
 export const userProfilesRelations = relations(userProfiles, ({ one }) => ({
 	user: one(users, { fields: [userProfiles.userId], references: [users.id] })
 }));
@@ -299,6 +317,8 @@ export type Attachment = typeof attachments.$inferSelect;
 export type Comment = typeof comments.$inferSelect;
 export type Tag = typeof tags.$inferSelect;
 export type Taggable = typeof taggables.$inferSelect;
+export type Contact = typeof contacts.$inferSelect;
+export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
 
 export type NewRole = typeof roles.$inferInsert;
 export type NewUser = typeof users.$inferInsert;
@@ -317,4 +337,6 @@ export type NewAttachment = typeof attachments.$inferInsert;
 export type NewComment = typeof comments.$inferInsert;
 export type NewTag = typeof tags.$inferInsert;
 export type NewTaggable = typeof taggables.$inferInsert;
+export type NewContact = typeof contacts.$inferInsert;
+export type NewNewsletterSubscription = typeof newsletterSubscriptions.$inferInsert;
 

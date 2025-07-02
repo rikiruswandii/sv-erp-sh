@@ -3,16 +3,16 @@
 	import Skeleton from './ui/skeleton/skeleton.svelte';
 
 	const teams = [
-		{ name: 'Feby', position: 'Co-Founder / CEO', image: PakFeb },
-		{ name: 'Alfin', position: 'Network Engineer', image: Fin },
-		{ name: 'Zack', position: 'Software Engineer', image: Zack },
-		{ name: 'Yoga', position: 'Web Developer', image: Agoy },
+		{ name: 'Feby A. Dzuhri, S.Si.Kom', position: 'Co-Founder / CEO', image: PakFeb },
+		{ name: 'Diah Putri Puspita Sari', position: 'Accounting', image: TehPut },
+		{ name: 'M Alfin Afif Al Farizi Farham', position: 'Network Engineer', image: Fin },
+		{ name: 'Rizky Zaki Zulkarnaen', position: 'Software Engineer', image: Zack },
+		{ name: 'Naufal Al Munawar', position: 'Mobile Developer', image: 'https://ui-avatars.com/api/?name=Naufal' },
+		{ name: 'Yoga Pangestu', position: 'Web Developer', image: Agoy },
 		{ name: 'Riki Ruswandi', position: 'Web Developer', image: Mikeu },
-		{ name: 'Ifan', position: 'Web Developer', image: Fan },
-		{ name: 'Yuki', position: 'Web Developer', image: 'https://ui-avatars.com/api/?name=Yuki' },
-		{ name: 'Putri', position: 'Accounting', image: TehPut },
+		{ name: 'Ifan Prima Nursaid', position: 'Web Developer', image: Fan },
+		{ name: 'M Yuqi Nurohman', position: 'Web Developer', image: 'https://ui-avatars.com/api/?name=Yuki' },
 		{ name: 'Dion', position: 'Geting data...', image: Dion },
-		{ name: 'Naufal', position: 'Mobile Developer', image: 'https://ui-avatars.com/api/?name=Naufal' }
 	];
 </script>
 

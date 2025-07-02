@@ -1,170 +1,145 @@
 <script lang="ts" module>
-	import AudioWaveformIcon from "@lucide/svelte/icons/audio-waveform";
-	import BookOpenIcon from "@lucide/svelte/icons/book-open";
-	import BotIcon from "@lucide/svelte/icons/bot";
-	import ChartPieIcon from "@lucide/svelte/icons/chart-pie";
-	import CommandIcon from "@lucide/svelte/icons/command";
-	import FrameIcon from "@lucide/svelte/icons/frame";
-	import GalleryVerticalEndIcon from "@lucide/svelte/icons/gallery-vertical-end";
-	import MapIcon from "@lucide/svelte/icons/map";
-	import Settings2Icon from "@lucide/svelte/icons/settings-2";
-	import SquareTerminalIcon from "@lucide/svelte/icons/square-terminal";
-	import Text from "@lucide/svelte/icons/text";
-	
+	import AudioWaveformIcon from '@lucide/svelte/icons/audio-waveform';
+	import LayoutDashboard from '@lucide/svelte/icons/layout-dashboard';
+	import BotIcon from '@lucide/svelte/icons/bot';
+	import BookUser from '@lucide/svelte/icons/book-user';
+	import CommandIcon from '@lucide/svelte/icons/command';
+	import FolderGit2 from '@lucide/svelte/icons/folder-git-2';
+	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
+	import ListTodo from '@lucide/svelte/icons/list-todo';
+	import Settings2Icon from '@lucide/svelte/icons/settings-2';
+	import Users from '@lucide/svelte/icons/users';
+	import SquareCode from '@lucide/svelte/icons/square-code';
+	import Logs from '@lucide/svelte/icons/logs';
+	import Contact from '@lucide/svelte/icons/contact';
+	import MailCheck from '@lucide/svelte/icons/mail-check';
+	import ShieldPlus from '@lucide/svelte/icons/shield-plus';
+	import Shield from '@lucide/svelte/icons/shield';
+	import NotebookTabs from '@lucide/svelte/icons/notebook-tabs';
+
 	// This is sample data.
 	const items = {
 		teams: [
 			{
-				name: "Acme Inc",
-				logo: GalleryVerticalEndIcon,
-				plan: "Enterprise",
+				name: 'Superadmin',
+				logo: ShieldPlus,
+				plan: 'Enterprise'
 			},
 			{
-				name: "Acme Corp.",
-				logo: AudioWaveformIcon,
-				plan: "Startup",
+				name: 'Admin',
+				logo: Shield,
+				plan: 'Business'
 			},
 			{
-				name: "Evil Corp.",
-				logo: CommandIcon,
-				plan: "Free",
-			},
+				name: 'Accounting',
+				logo: NotebookTabs,
+				plan: 'Basic'
+			}
 		],
 		navMain: [
 			{
-				title: "Playground",
-				url: "#",
-				icon: SquareTerminalIcon,
-				items: [
+				label: 'Ikhtisar',
+				menus: [
 					{
-						title: "History",
-						url: "#",
-					},
-					{
-						title: "Starred",
-						url: "#",
-					},
-					{
-						title: "Settings",
-						url: "#",
-					},
-				],
+						title: 'Dashboard',
+						url: '/panel',
+						icon: LayoutDashboard
+					}
+				]
 			},
 			{
-				title: "Master",
-				url: "#",
-				icon: BotIcon,
-				items: [
+				label: 'Workspace',
+				menus: [
 					{
-						title: "User Management",
-						url: "/panel/user",
+						title: 'Client',
+						url: '#',
+						icon: BookUser
 					},
 					{
-						title: "Explorer",
-						url: "#",
+						title: 'Project',
+						url: '#',
+						icon: FolderGit2
 					},
 					{
-						title: "Quantum",
-						url: "#",
-					},
-				],
+						title: 'Task',
+						url: '#',
+						icon: ListTodo
+					}
+				]
 			},
 			{
-				title: "Front",
-				url: "#",
-				icon: Text,
-				items: [
+				label: 'Master',
+				menus: [
 					{
-						title: "Pages",
-						url: "/panel/pages",
+						title: 'User Management',
+						url: '/panel/user',
+						icon: Users
 					},
 					{
-						title: "Get Started",
-						url: "#",
-					},
-					{
-						title: "Tutorials",
-						url: "#",
-					},
-					{
-						title: "Changelog",
-						url: "#",
-					},
-				],
+						title: 'Log Activity',
+						url: '#',
+						icon: Logs
+					}
+				]
 			},
 			{
-				title: "Settings",
-				url: "#",
-				icon: Settings2Icon,
-				items: [
+				label: 'Front',
+				menus: [
 					{
-						title: "General",
-						url: "#",
+						title: 'Pages',
+						url: '/panel/pages',
+						icon: SquareCode
 					},
 					{
-						title: "Team",
-						url: "#",
+						title: 'Contact',
+						url: '#',
+						icon: Contact
 					},
 					{
-						title: "Billing",
-						url: "#",
-					},
-					{
-						title: "Limits",
-						url: "#",
-					},
-				],
-			},
-		],
-		projects: [
-			{
-				name: "Design Engineering",
-				url: "#",
-				icon: FrameIcon,
+						title: 'Subscription',
+						url: '#',
+						icon: MailCheck
+					}
+				]
 			},
 			{
-				name: "Sales & Marketing",
-				url: "#",
-				icon: ChartPieIcon,
-			},
-			{
-				name: "Travel",
-				url: "#",
-				icon: MapIcon,
-			},
-		],
+				label: 'Settings',
+				menus: [
+					{
+						title: 'General',
+						url: '#',
+						icon: Settings2Icon
+					}
+				]
+			}
+		]
 	};
 </script>
 
 <script lang="ts">
-	import NavMain from "./nav-main.svelte";
-	import NavProjects from "./nav-projects.svelte";
-	import NavUser from "./nav-user.svelte";
-	import TeamSwitcher from "./team-switcher.svelte";
-	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-	import type { ComponentProps } from "svelte";
+	import NavMain from './nav-main.svelte';
+	import NavUser from './nav-user.svelte';
+	import TeamSwitcher from './team-switcher.svelte';
+	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import type { ComponentProps } from 'svelte';
 	import { page } from '$app/state';
-	let currentPath  = $state(page.url.pathname);
+	let currentPath = $state(page.url.pathname);
 	let navItems = $state<Array<any>>([]);
 
 	$effect(() => {
-		navItems = items.navMain.map((item) => {
-			const isActive = item.url === currentPath || item.items?.some(sub => sub.url === currentPath);
-			return {
-				...item,
-				isActive,
-				items: item.items?.map(sub => ({
-					...sub,
-					isActive: sub.url === currentPath,
-				})) ?? [],
-			};
-		});
+		navItems = items.navMain.map((group) => ({
+			...group,
+			menus: group.menus.map((menu) => ({
+				...menu,
+				isActive: menu.url === currentPath
+			}))
+		}));
 	});
 
 	let {
-        data,
+		data,
 		ref = $bindable(null),
-		collapsible = "icon",
+		collapsible = 'icon',
 		...restProps
 	}: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
@@ -175,7 +150,6 @@
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={navItems} />
-		<NavProjects projects={items.projects} />
 	</Sidebar.Content>
 	<Sidebar.Footer>
 		<NavUser user={data.user} />

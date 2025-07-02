@@ -88,8 +88,8 @@
 			<Dialog.Description>
 				Use this form to add a new user to the system. Please fill in all the required fields
 				accurately. Ensure that the username and email are unique. You may optionally upload a
-				profile picture. Once all information is provided, click the "Save" button to create
-				the user account.
+				profile picture. Once all information is provided, click the "Save" button to create the
+				user account.
 			</Dialog.Description>
 		</Dialog.Header>
 		<form method="POST" action="?/create" use:enhance>
@@ -179,10 +179,10 @@
 			</Form.Field>
 			<div class="mt-4">
 				{#if $delayed}
-					<Form.Button disabled  class="flex w-full justify-center">
+					<Form.Button disabled class="flex w-full justify-center">
 						<LoaderCircle class="animate-spin" />
 						Please wait
-					  </Form.Button>
+					</Form.Button>
 				{:else}
 					<Form.Button class="flex w-full justify-center">Confirm</Form.Button>
 				{/if}
