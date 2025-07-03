@@ -94,7 +94,7 @@
 			<div class="lg:hidden">
 				<button
 					class="rounded p-2 text-gray-700 dark:text-white"
-					on:click={() => (isMenuOpen = true)}
+					onclick={() => (isMenuOpen = true)}
 					aria-label="Open menu"
 				>
 					<svg
