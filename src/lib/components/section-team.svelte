@@ -4,6 +4,7 @@
 
 	const teams = [
 		{ name: 'Feby A. Dzuhri, S.Si.Kom', position: 'Co-Founder / CEO', image: PakFeb },
+		{ name: 'Dion Avrianza', position: 'Assisten Manager', image: Dion },
 		{ name: 'Diah Putri Puspita Sari', position: 'Accounting', image: TehPut },
 		{ name: 'M Alfin Afif Al Farizi Farham', position: 'Network Engineer', image: Fin },
 		{ name: 'Rizky Zaki Zulkarnaen', position: 'Software Engineer', image: Zack },
@@ -12,7 +13,6 @@
 		{ name: 'Riki Ruswandi', position: 'Web Developer', image: Mikeu },
 		{ name: 'Ifan Prima Nursaid', position: 'Web Developer', image: Fan },
 		{ name: 'M Yuqi Nurohman', position: 'Web Developer', image: 'https://ui-avatars.com/api/?name=Yuki' },
-		{ name: 'Dion', position: 'Geting data...', image: Dion },
 	];
 </script>
 
