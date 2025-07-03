@@ -7,6 +7,20 @@
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
     import type { LayoutProps } from './$types';
     import { ModeWatcher } from "mode-watcher";
+    import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
+	let isLoading = $state(false);
+
+	onMount(() => {
+		beforeNavigate(() => {
+			isLoading = true;
+		});
+
+		afterNavigate(() => {
+			isLoading = false;
+		});
+	});
 
     
     let { data, children }: LayoutProps = $props();
@@ -24,3 +38,9 @@
         {/if}
 	</Sidebar.Inset>
 </Sidebar.Provider>
+
+{#if isLoading}
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-white/20 backdrop-blur-sm">
+		<LoaderCircle class="h-8 w-auto animate-spin text-blue-500" />
+	</div>
+{/if}

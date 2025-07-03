@@ -46,7 +46,7 @@
 			</DropdownMenu.Item>
 		</DropdownMenu.Group>
 		<DropdownMenu.Item>
-			<Button size="sm" variant="ghost"><Eye /> View message</Button>
+			<Button href={`/panel/contact/view/${id}`} size="sm" variant="ghost"><Eye /> View message</Button>
 		</DropdownMenu.Item>
 		<DropdownMenu.Separator />
 	</DropdownMenu.Content>

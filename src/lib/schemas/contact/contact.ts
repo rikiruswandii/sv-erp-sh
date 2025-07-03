@@ -9,6 +9,7 @@ export const contactSchema = z.object({
   phoneNumber: z.string().max(20).optional().nullable(),
   message: z.string().min(1),
   agreedPolicy: z.boolean().default(false),
+  replyMessage: z.string().min(1).nullable(),
 });
 
 export type ContactSchema = typeof contactSchema;
