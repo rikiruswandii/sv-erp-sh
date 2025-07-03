@@ -40,7 +40,7 @@
 </Sidebar.Provider>
 
 {#if isLoading}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-white/50 backdrop-blur-sm">
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-white/20 backdrop-blur-sm">
 		<LoaderCircle class="h-8 w-auto animate-spin text-blue-500" />
 	</div>
 {/if}
