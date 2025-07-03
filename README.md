@@ -6,7 +6,7 @@
 
 - **Riki Ruswandi / Mikeu**  
   📧 [rikiruswandi@gmail.com](mailto:rikiruswandi@gmail.com)  
-  🔗 [https://github.com/rikiruswandii](https://github.com/rikiruswandii)
+  🔗 [portfolio](https://immikeu.vercel.app)
 
 ## ⚙️ Teknologi Utama
 
